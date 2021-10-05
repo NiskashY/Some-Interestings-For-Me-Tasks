@@ -27,4 +27,5 @@ int main() {
 			std::cout << std::endl<< std::endl;
 		}
 	} while (check);
+	return 0;
 }
