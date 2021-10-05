@@ -6,6 +6,7 @@ int main() {
 	bool check = 1;
 	int secret;
 	srand(time(0));
+	std::cout << "Welcome to the rock/paper/scissors wars vs computer!";
 	std::cout  << "rock - 1 \tpaper - 2 \tscissors - 3 \t quit - 4\n";
 	do {
 		count++;
@@ -27,5 +28,6 @@ int main() {
 			std::cout << std::endl<< std::endl;
 		}
 	} while (check);
+	
 	return 0;
 }
