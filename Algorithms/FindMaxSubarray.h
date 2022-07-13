@@ -108,41 +108,22 @@ O_n_FindMaxSubarray(const ContainerType& container, IndexType low, IndexType hig
 	
 	// O(n) solution
 	
-	ContainerType sums(container.size());
-	for (IndexType i = low; i <= high; ++i) {
-		sums[i] = container[i] + sums[i - 1];
-	}
-
-	IndexType minimal_value_index = low;
-	MaxSubArray max_sub_array{low, low, sums[low] + sums[low - 1]};
+	MaxSubArray max_sub_array{low, low, container[low]};
+	IndexType current_left = low;
+	IndexType container_sum = 0;
 
 	for (IndexType i = low; i <= high; ++i) {
-		if (sums[i] - sums[max_sub_array.left - 1] > max_sub_array.sum) {
+		container_sum += container[i];
+		if (container_sum > max_sub_array.sum) {		
+			max_sub_array.left = current_left;
 			max_sub_array.right = i;
-			max_sub_array.sum = sums[i] - sums[max_sub_array.left - 1];
-		} else if (sums[i] - sums[minimal_value_index] > max_sub_array.sum) {
-			max_sub_array.left = minimal_value_index + 1;
-			max_sub_array.right = i;
-			max_sub_array.sum = sums[i] - sums[minimal_value_index];
-			++minimal_value_index;
+			max_sub_array.sum = container_sum;	
 		}
-		
-		if (sums[i] < sums[minimal_value_index]) {
-			minimal_value_index = i;
+		if (container_sum < 0) {
+			container_sum = 0;
+			current_left = i + 1;
 		}
 	}
-
 	return max_sub_array;
 }
-
-
-
-
-
-
-
-
-
-
-
 
